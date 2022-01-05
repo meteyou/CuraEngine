@@ -235,8 +235,6 @@ std::string GCodeExport::getFileHeader(const std::vector<bool>& extruder_is_used
         {
             prefix << ";MATERIAL:" << ((filament_used.size() >= 1)? static_cast<int>(filament_used[0]) : 6666) << new_line;
             prefix << ";MATERIAL2:" << ((filament_used.size() >= 2)? static_cast<int>(filament_used[1]) : 0) << new_line;
-
-            prefix << ";NOZZLE_DIAMETER:" << Application::getInstance().current_slice->scene.extruders[0].settings.get<double>("machine_nozzle_size") << new_line;
         }
         else if (flavor == EGCodeFlavor::REPRAP || flavor == EGCodeFlavor::MARLIN || flavor == EGCodeFlavor::MARLIN_VOLUMATRIC)
         {
@@ -266,6 +264,7 @@ std::string GCodeExport::getFileHeader(const std::vector<bool>& extruder_is_used
             prefix << new_line;
             prefix << ";Layer height: " << Application::getInstance().current_slice->scene.current_mesh_group->settings.get<double>("layer_height") << new_line;
         }
+        prefix << ";NOZZLE_DIAMETER:" << Application::getInstance().current_slice->scene.extruders[0].settings.get<double>("machine_nozzle_size") << new_line;
         prefix << ";MINX:" << INT2MM(total_bounding_box.min.x) << new_line;
         prefix << ";MINY:" << INT2MM(total_bounding_box.min.y) << new_line;
         prefix << ";MINZ:" << INT2MM(total_bounding_box.min.z) << new_line;
